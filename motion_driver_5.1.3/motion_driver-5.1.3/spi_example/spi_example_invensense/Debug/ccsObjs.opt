@@ -1,0 +1,1 @@
+"./msp430_spi.obj" "./main.obj" -l"libc.a" "../lnk_msp430f5528.cmd" 
