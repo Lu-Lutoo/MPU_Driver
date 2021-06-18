@@ -27,14 +27,31 @@ extern "C"{
 #include "mpu_component.h"
 #include "inv_mpu.h"
 /* Private macros ------------------------------------------------------------*/
+//gyro fsr
+const unsigned short GYRO_FSR_250DPS 	= 250;
+const unsigned short GYRO_FSR_500DPS 	= 500;
+const unsigned short GYRO_FSR_1000DPS 	= 1000;
+const unsigned short GYRO_FSR_2000DPS 	= 2000;
+//accel fsr
+const unsigned char  ACCEL_FSR_2G		= 2;
+const unsigned char  ACCEL_FSR_4G		= 4;
+const unsigned char  ACCEL_FSR_8G		= 8;
+const unsigned char  ACCEL_FSR_16G		= 16;
+//lpf
+const unsigned short LPF_5HZ			= 5;
+const unsigned short LPF_10HZ			= 10;
+const unsigned short LPF_20HZ			= 20;
+const unsigned short LPF_42HZ			= 42;
+const unsigned short LPF_98HZ			= 98;
+const unsigned short LPF_188HZ			= 188;
 /* Private type --------------------------------------------------------------*/
 struct mpu_s {
-	unsigned char sensors;
-	unsigned short fifo_config;
-	unsigned short sample_rate; //must be between 4Hz to 1kHz.我应该用一个断言检测(不用了，官方自己限位了)
-	unsigned char accel_fsr;
-	unsigned short gyro_fsr;
-	unsigned char lpf;
+	unsigned char sensors;   		//Select which sensors are pushed to FIFO.
+	unsigned short fifo_config;		//Select which sensors are pushed to FIFO.
+	unsigned short sample_rate;
+	unsigned char accel_fsr;		//Set the accel full-scale range.
+	unsigned short gyro_fsr;		//Set the gyro full-scale range.
+	unsigned char lpf;				//Set digital low pass filter
 	signed char gyro_orientation[9];
 };
 
@@ -43,7 +60,6 @@ struct dmp_s {
 	unsigned short dmp_feature;
 	unsigned char interrupt_mode;
 	unsigned short fifo_rate;
-	unsigned char gyro_cal_on; //1 for on, 0 for off
 };
 
 struct rec_s {
@@ -66,10 +82,9 @@ extern struct rec_s mpu_receive;
 /* Exported function declarations --------------------------------------------*/
 uint8_t MPU6050_Config_Pin(GPIO_TypeDef *gpiox, uint16_t scl_pinx, uint16_t sda_pinx);
 unsigned char MPU6050_Init(struct mpu_s *_mpu_s,struct dmp_s *_dmp_s,struct rec_s *_rec_s);
-void MPU6050_run_self_test(void);
-void dmp_gyro_cal(struct dmp_s *_dmp_s);
+void MPU6050_run_self_test(uint8_t set_accel_bias);
 uint8_t  dmp_read_data(struct rec_s *_rec_s);
-
+uint8_t mpu_read_data(struct rec_s* _rec_s);
 
 
 #ifdef  __cplusplus
