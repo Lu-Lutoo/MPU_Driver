@@ -80,17 +80,6 @@ int get_tick_count(unsigned long *count)
 	return 0;
 }
 
-/**
-  * @brief
-  * @param
-  * @retval
-	*/
-int mpu_uart_transmit(uint8_t ch )
-{
-  Uart3_Transmit(&ch, 1);
-
-  return ch;
-}
 
 
 

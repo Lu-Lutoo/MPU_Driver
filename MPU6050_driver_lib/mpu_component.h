@@ -24,7 +24,6 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "Drivers/Components/drv_i2c.h"
-#include "Drivers/Components/drv_uart.h"
 #include "Drivers/Components/drv_timer.h"
 /* Private macros ------------------------------------------------------------*/
 /* Private type --------------------------------------------------------------*/
@@ -38,7 +37,6 @@ unsigned char MPU_I2C_WriteRegister(unsigned char slave_addr,unsigned char reg_a
 unsigned char MPU_I2C_ReadRegister(unsigned char Address,unsigned char RegisterAddr, 
                              unsigned short RegisterLen,unsigned char *RegisterValue);
 int get_tick_count(unsigned long *count);
-int mpu_uart_transmit(uint8_t ch );
 	
 
 
