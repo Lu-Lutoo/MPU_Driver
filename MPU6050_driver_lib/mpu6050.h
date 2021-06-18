@@ -25,6 +25,7 @@ extern "C"{
 
 /* Includes ------------------------------------------------------------------*/
 #include "mpu_component.h"
+#include "inv_mpu.h"
 /* Private macros ------------------------------------------------------------*/
 /* Private type --------------------------------------------------------------*/
 struct mpu_s {
@@ -46,10 +47,12 @@ struct dmp_s {
 };
 
 struct rec_s {
-	short gyro[3];
-	short accel[3];
+	float gyro[3];//x,y,z
+	float accel[3];//x,y,z
 	long  quat[4];
-	float angle[3];
+	float pitch;
+	float roll;
+	float yaw;
 	short sensors;
 	unsigned char more;
 	unsigned long sensor_timestamp;
@@ -63,9 +66,9 @@ extern struct rec_s mpu_receive;
 /* Exported function declarations --------------------------------------------*/
 uint8_t MPU6050_Config_Pin(GPIO_TypeDef *gpiox, uint16_t scl_pinx, uint16_t sda_pinx);
 unsigned char MPU6050_Init(struct mpu_s *_mpu_s,struct dmp_s *_dmp_s,struct rec_s *_rec_s);
-static inline void run_self_test(void);
+void MPU6050_run_self_test(void);
 void dmp_gyro_cal(struct dmp_s *_dmp_s);
-void  dmp_read_data(struct rec_s *_rec_s);
+uint8_t  dmp_read_data(struct rec_s *_rec_s);
 
 
 
