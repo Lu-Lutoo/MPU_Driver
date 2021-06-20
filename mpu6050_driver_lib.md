@@ -83,11 +83,17 @@
 
 若需要做修改，修改对应的结构体：`mpu_config` `dmp_config `即可
 
+定义接收数据结构体：
+
+```C++
+mpu_rec_s mpu_receive;
+```
+
 初始化代码：
 
 ```C++
 MPU6050_Config_Pin(GPIOB,GPIO_PIN_6,GPIO_PIN_7);
-MPU6050_Init(&mpu_config,&dmp_config,&mpu_receive);
+MPU6050_Init(&mpu_config,&dmp_config);
 MPU6050_run_self_test(false);//自检函数，参数对应是否将自检的加速度值作为偏差写入对应寄存器
 ```
 

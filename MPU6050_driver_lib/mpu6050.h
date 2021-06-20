@@ -62,7 +62,7 @@ struct dmp_config_s {
 	unsigned short fifo_rate;
 };
 
-struct rec_s {
+struct mpu_rec_s {
 	float gyro[3];//x,y,z
 	float accel[3];//x,y,z
 	long  quat[4];
@@ -78,13 +78,12 @@ struct rec_s {
 /* Exported types ------------------------------------------------------------*/
 extern struct mpu_config_s mpu_config;
 extern struct dmp_config_s dmp_config;
-extern struct rec_s mpu_receive;
 /* Exported function declarations --------------------------------------------*/
 uint8_t MPU6050_Config_Pin(GPIO_TypeDef *gpiox, uint16_t scl_pinx, uint16_t sda_pinx);
 unsigned char MPU6050_Init(struct mpu_config_s *_mpu_s,struct dmp_config_s *_dmp_s);
 void MPU6050_run_self_test(uint8_t set_accel_bias);
-uint8_t  dmp_read_data(struct rec_s *_rec_s);
-uint8_t mpu_read_data(struct rec_s* _rec_s);
+uint8_t  dmp_read_data(struct mpu_rec_s *_rec_s);
+uint8_t mpu_read_data(struct mpu_rec_s* _rec_s);
 
 
 #ifdef  __cplusplus

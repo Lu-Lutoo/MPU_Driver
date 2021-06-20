@@ -67,8 +67,6 @@ struct dmp_config_s dmp_config = {
 		.fifo_rate = DMP_FIFO_DEFAULT_RATE,
 };
 
-/* mpu or dmp receive data struct */
-struct rec_s mpu_receive = {0};
 
 /* Private function declarations ---------------------------------------------*/
 static inline unsigned short inv_row_2_scale(const signed char *row);
@@ -230,7 +228,7 @@ void MPU6050_run_self_test(uint8_t set_accel_bias)
  * @brief 读取mpu fifo的数据
  * @param  struct rec_s* _rec_s
  */
-uint8_t  dmp_read_data(struct rec_s *_rec_s)
+uint8_t  dmp_read_data(struct mpu_rec_s *_rec_s)
 {
 	uint8_t i = 0;
 	float q0,q1,q2,q3;
@@ -259,7 +257,7 @@ uint8_t  dmp_read_data(struct rec_s *_rec_s)
  * @brief read mpu fifo data
  * @param	struct rec_s* _rec_s
  */
-uint8_t mpu_read_data(struct rec_s* _rec_s){
+uint8_t mpu_read_data(struct mpu_rec_s* _rec_s){
 	uint8_t i = 0;
 	short gyro_16bit[3] = {0};
 	short accel_16bit[3] = {0};
