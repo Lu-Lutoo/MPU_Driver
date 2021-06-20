@@ -4,7 +4,7 @@
 
 ### Three struct
 
-#### mpu_s		
+####  mpu_config_s
 
   + `sensors`  	 Select which sensors are pushed to FIFO.
 
@@ -36,7 +36,7 @@
 
 	> 这个需要看mpu芯片放置和你需要的体坐标系的关系，你需要的体坐标系乘上orientation matrix会得到mpu芯片坐标系
 
-#### dmp_s
+#### dmp_config_s
 
 + `dmp_on` turn dmp on/off
 + `dmp_feature`
