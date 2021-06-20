@@ -17,6 +17,11 @@
  *                  MPU9150 (or MPU6050 w/ AK8975 on the auxiliary bus)
  *                  MPU9250 (or MPU6500 w/ AK8963 on the auxiliary bus)
  */
+
+#include "SRML.h"
+
+#if USE_SRML_MPU6050
+
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -3247,4 +3252,4 @@ lp_int_restore:
 /**
  *  @}
  */
-
+#endif

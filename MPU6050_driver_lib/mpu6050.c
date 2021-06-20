@@ -31,6 +31,10 @@
 * All rights reserved.</center></h2>
 ******************************************************************************
 */
+#include "SRML.h"
+
+#if USE_SRML_MPU6050
+
 /* Includes ------------------------------------------------------------------*/
 #include "mpu6050.h"
 #include <math.h>
@@ -44,7 +48,7 @@ const unsigned short DMP_FIFO_DEFAULT_RATE = 200;
 /* Private variables ---------------------------------------------------------*/
 /* Private type --------------------------------------------------------------*/
 /* mpu config struct */
-struct mpu_s mpu_config = {
+struct mpu_config_s mpu_config = {
 		.sensors 		= INV_XYZ_GYRO|INV_XYZ_ACCEL,
 		.fifo_config 	= INV_XYZ_GYRO|INV_XYZ_ACCEL,
 		.sample_rate 	= DMP_FIFO_DEFAULT_RATE,
@@ -55,7 +59,7 @@ struct mpu_s mpu_config = {
 };
 
 /* dmp config struct */
-struct dmp_s dmp_config = {
+struct dmp_config_s dmp_config = {
 		.dmp_on = 1,
 		.dmp_feature = DMP_FEATURE_6X_LP_QUAT|DMP_FEATURE_GYRO_CAL|
 						DMP_FEATURE_SEND_RAW_ACCEL|DMP_FEATURE_SEND_CAL_GYRO ,
@@ -148,7 +152,7 @@ uint8_t MPU6050_Config_Pin(GPIO_TypeDef *gpiox, uint16_t scl_pinx, uint16_t sda_
  * 			_dmp_s(struct dmp_s*) dmp config struct
  * 			_rec_s(struct rec_s*) receive data struct
  */
-unsigned char MPU6050_Init(struct mpu_s *_mpu_s,struct dmp_s *_dmp_s,struct rec_s *_rec_s)
+unsigned char MPU6050_Init(struct mpu_config_s *_mpu_s,struct dmp_config_s *_dmp_s)
 {
 	/* initial iic bus */
 	IIC_Init(&MPU_IIC_PIN);
@@ -191,8 +195,6 @@ unsigned char MPU6050_Init(struct mpu_s *_mpu_s,struct dmp_s *_dmp_s,struct rec_
 		dmp_set_interrupt_mode(_dmp_s->interrupt_mode);}
 	/* turn on dmp */
 	mpu_set_dmp_state(1);
-	/* Initialize receive variables. */
-	memset(_rec_s, 0, sizeof(*_rec_s));
 
 	return 0;
 }
@@ -273,5 +275,6 @@ uint8_t mpu_read_data(struct rec_s* _rec_s){
 	return 0;
 }
 
+#endif
 /************************ COPYRIGHT(C) SCUT-ROBOTLAB **************************/
 

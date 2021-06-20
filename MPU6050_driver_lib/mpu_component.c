@@ -34,6 +34,10 @@
     * All rights reserved.</center></h2>
     ******************************************************************************
     */
+#include "SRML.h"
+
+#if USE_SRML_MPU6050
+
 /* Includes ------------------------------------------------------------------*/
 #include "mpu_component.h"
 /* Private define ------------------------------------------------------------*/
@@ -80,7 +84,7 @@ int get_tick_count(unsigned long *count)
 	return 0;
 }
 
-
+#endif
 
 
 /************************ COPYRIGHT(C) SCUT-ROBOTLAB **************************/
